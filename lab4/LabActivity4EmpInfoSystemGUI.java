@@ -4,51 +4,47 @@ import java.awt.event.*;
 public class LabActivity4EmpInfoSystemGUI {
 	public static void main(String[] args) {
 		Frame frame = new Frame("Laboratory Activity 4");
-		frame.setLayout(new GridLayout(8, 2, 10, 5)); // 8 rows, 2 columns
+		frame.setLayout(new BorderLayout(10, 20)); // Main layout with gaps
 
-		// Labels and input fields
-		Label firstNameLabel = new Label("First Name:");
+		Panel formPanel = new Panel(new GridLayout(5, 2, 10, 5));
 		TextField firstNameField = new TextField();
-
-		Label lastNameLabel = new Label("Last Name:");
 		TextField lastNameField = new TextField();
-
-		Label ageLabel = new Label("Age:");
 		TextField ageField = new TextField();
-
-		Label hoursLabel = new Label("Hours Worked:");
 		TextField hoursField = new TextField();
-
-		Label rateLabel = new Label("Hourly Rate:");
 		TextField rateField = new TextField();
 
+		formPanel.add(new Label("First Name:"));
+		formPanel.add(firstNameField);
+		formPanel.add(new Label("Last Name:"));
+		formPanel.add(lastNameField);
+		formPanel.add(new Label("Age:"));
+		formPanel.add(ageField);
+		formPanel.add(new Label("Hours Worked:"));
+		formPanel.add(hoursField);
+		formPanel.add(new Label("Hourly Rate:"));
+		formPanel.add(rateField);
+
+		// Submit Button Panel
+		Panel submitPanel = new Panel();
 		Button submitButton = new Button("Submit");
-		Label outputTitleLabel = new Label("Output:");
-		TextArea outputArea = new TextArea("", 50, 30, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		submitPanel.add(submitButton);
 
-		// Add to layout
-		frame.add(firstNameLabel);	
-		frame.add(firstNameField);
+		// Center Container
+		Panel centerContainer = new Panel(new BorderLayout(10, 10));
+		centerContainer.add(formPanel, BorderLayout.NORTH);
+		centerContainer.add(submitPanel, BorderLayout.CENTER);
 
-		frame.add(lastNameLabel);	
-		frame.add(lastNameField);
+		// Output Panel (South)
+		Panel outputPanel = new Panel(new BorderLayout());
+		outputPanel.add(new Label("Output:"), BorderLayout.NORTH);
+		TextArea outputArea = new TextArea("", 5, 30, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		outputPanel.add(outputArea, BorderLayout.CENTER);
 
-		frame.add(ageLabel);		
-		frame.add(ageField);
+		// Add components to frame
+		frame.add(centerContainer, BorderLayout.CENTER);
+		frame.add(outputPanel, BorderLayout.SOUTH);
 
-		frame.add(hoursLabel);		
-		frame.add(hoursField);
-
-		frame.add(rateLabel);		
-		frame.add(rateField);
-
-		frame.add(new Label(""));	
-		frame.add(submitButton);
-		
-		frame.add(outputTitleLabel);	
-		frame.add(outputArea);
-
-		// Submit action
+		// Submit action (unchanged logic)
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String fname = firstNameField.getText().trim();
@@ -97,11 +93,11 @@ public class LabActivity4EmpInfoSystemGUI {
 		});
 
 		// Frame settings
-		frame.setSize(600, 400);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 		frame.setResizable(false);
 
-		// Exit handler
+		// Window listener to exit
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				frame.dispose();
@@ -110,4 +106,3 @@ public class LabActivity4EmpInfoSystemGUI {
 		});
 	}
 }
-
